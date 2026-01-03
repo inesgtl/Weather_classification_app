@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Classifier - AI Powered</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Weather Classifier</h1>
+            <p class="subtitle">weather detection from images</p>
+        </header>
+
+        <div class="upload-section">
+            <div class="upload-box" id="uploadBox">
+                <div class="upload-icon">📸</div>
+                <h3>Upload weather image</h3>
+                <p>Drop your image here or click to browse</p>
+                <input type="file" id="fileInput" accept="image/*" hidden>
+            </div>
+
+            <div class="preview-section" id="previewSection" style="display: none;">
+                <img id="imagePreview" src="" alt="Preview">
+                <div>
+                    <button class="btn-primary" id="predictBtn">Analyze Weather</button>
+                    <button class="btn-secondary" id="changeImage">Change Image</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="loading" id="loading" style="display: none;">
+            <div class="spinner"></div>
+            <p>Analyzing weather patterns...</p>
+        </div>
+
+        <div class="results" id="results" style="display: none;">
+            <h2>Analysis Results</h2>
+            
+            <div class="prediction-card">
+                <div class="emoji" id="weatherEmoji"></div>
+                <h3 id="weatherClass"></h3>
+                <div class="confidence">
+                    <span>Confidence</span>
+                    <span class="confidence-value" id="confidenceValue"></span>
+                </div>
+                <p class="description" id="weatherDescription"></p>
+            </div>
+
+            <div class="probabilities">
+                <h3>Detailed Probabilities</h3>
+                <div class="probability-bars" id="probabilityBars"></div>
+            </div>
+
+            <div style="text-align: center;">
+                <button class="btn-secondary" id="tryAgain">Analyze Another Image</button>
+            </div>
+        </div>
+
+        <div class="error" id="error" style="display: none;">
+            <div class="error-icon">⚠️</div>
+            <p id="errorMessage"></p>
+            <button class="btn-secondary" id="dismissError">Try Again</button>
+        </div>
+
+        <footer>
+            <p>Powered by Deep Learning & TensorFlow</p>
+            <p class="tech-stack">Hail · Lightning · Rain · Sandstorm · Snow</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

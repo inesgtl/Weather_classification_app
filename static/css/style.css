@@ -1,0 +1,580 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Weather-inspired colors */
+    --sky-blue: #0ea5e9;
+    --cloud-white: #f8fafc;
+    --storm-blue: #1e40af;
+    --sun-yellow: #fbbf24;
+    --rain-blue: #3b82f6;
+    --lightning: #eab308;
+    --snow-white: #ffffff;
+    --fog-gray: #94a3b8;
+    
+    /* Semantic colors */
+    --primary: var(--sky-blue);
+    --secondary: var(--fog-gray);
+    --accent: var(--sun-yellow);
+    --dark: #1e293b;
+    --text-light: #64748b;
+    --gray-100: #f1f5f9;
+    --gray-200: #e2e8f0;
+    --gray-300: #cbd5e1;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    background: linear-gradient(180deg, #e0f2fe 0%, #bae6fd 50%, #7dd3fc 100%);
+    min-height: 100vh;
+    padding: 20px;
+    color: var(--dark);
+    line-height: 1.6;
+    position: relative;
+}
+
+/* Animated clouds background */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(ellipse 200px 100px at 20% 30%, rgba(255, 255, 255, 0.4), transparent),
+        radial-gradient(ellipse 300px 150px at 80% 60%, rgba(255, 255, 255, 0.3), transparent),
+        radial-gradient(ellipse 250px 120px at 50% 80%, rgba(255, 255, 255, 0.35), transparent);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(14, 165, 233, 0.15);
+    position: relative;
+    z-index: 1;
+}
+
+/* Header with weather gradient */
+header {
+    background: linear-gradient(135deg, var(--sky-blue) 0%, var(--storm-blue) 100%);
+    padding: 48px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+header::before {
+    content: '☀️';
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    font-size: 3rem;
+    opacity: 0.3;
+    animation: rotate 20s linear infinite;
+}
+
+header::after {
+    content: '☁️';
+    position: absolute;
+    bottom: 20px;
+    left: 40px;
+    font-size: 2.5rem;
+    opacity: 0.3;
+    animation: float 15s ease-in-out infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+}
+
+header h1 {
+    font-size: 2.5rem;
+    color: var(--snow-white);
+    margin-bottom: 8px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.05rem;
+    font-weight: 400;
+}
+
+/* Main Content */
+.upload-section {
+    padding: 40px;
+}
+
+.upload-box {
+    border: 3px dashed var(--sky-blue);
+    border-radius: 20px;
+    padding: 64px 40px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, rgba(240, 249, 255, 0.8) 0%, rgba(224, 242, 254, 0.8) 100%);
+    position: relative;
+}
+
+.upload-box::before {
+    content: '☁️';
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 2rem;
+    opacity: 0.2;
+}
+
+.upload-box:hover {
+    border-color: var(--storm-blue);
+    background: linear-gradient(135deg, rgba(186, 230, 253, 0.4) 0%, rgba(224, 242, 254, 0.6) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(14, 165, 233, 0.2);
+}
+
+.upload-box.dragover {
+    border-color: var(--accent);
+    background: linear-gradient(135deg, rgba(254, 243, 199, 0.4) 0%, rgba(253, 224, 71, 0.2) 100%);
+    box-shadow: 0 0 30px rgba(251, 191, 36, 0.3);
+}
+
+.upload-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.upload-box h3 {
+    color: var(--dark);
+    margin-bottom: 8px;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.upload-box p {
+    color: var(--text-light);
+    font-size: 0.95rem;
+}
+
+/* Preview Section */
+.preview-section {
+    text-align: center;
+    padding: 40px;
+}
+
+.preview-section img {
+    max-width: 100%;
+    max-height: 400px;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(14, 165, 233, 0.2);
+    margin-bottom: 24px;
+    object-fit: cover;
+    border: 4px solid var(--snow-white);
+}
+
+/* Buttons with weather theme */
+.btn-primary, .btn-secondary {
+    padding: 14px 32px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+    margin: 8px;
+    font-family: inherit;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--sky-blue) 0%, var(--storm-blue) 100%);
+    color: var(--snow-white);
+    box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(14, 165, 233, 0.4);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.btn-secondary {
+    background: var(--snow-white);
+    color: var(--sky-blue);
+    border: 2px solid var(--sky-blue);
+}
+
+.btn-secondary:hover {
+    background: var(--sky-blue);
+    color: var(--snow-white);
+}
+
+/* Loading with weather animation */
+.loading {
+    text-align: center;
+    padding: 64px 40px;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(14, 165, 233, 0.2);
+    border-top: 4px solid var(--sky-blue);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading p {
+    color: var(--text-light);
+    font-size: 1rem;
+}
+
+.loading p::after {
+    content: '☁️';
+    display: inline-block;
+    margin-left: 8px;
+    animation: float 2s ease-in-out infinite;
+}
+
+/* Results */
+.results {
+    padding: 40px;
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.results h2 {
+    text-align: center;
+    color: var(--dark);
+    margin-bottom: 32px;
+    font-size: 1.875rem;
+    font-weight: 700;
+}
+
+/* Prediction Card - Weather themed */
+.prediction-card {
+    background: linear-gradient(135deg, var(--sky-blue) 0%, var(--storm-blue) 100%);
+    color: var(--snow-white);
+    padding: 48px;
+    border-radius: 20px;
+    text-align: center;
+    margin-bottom: 32px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(14, 165, 233, 0.3);
+}
+
+/* Weather-specific card backgrounds */
+.prediction-card.rain {
+    background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+}
+
+.prediction-card.snow {
+    background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+    color: var(--dark);
+}
+
+.prediction-card.lightning {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+}
+
+.prediction-card.hail {
+    background: linear-gradient(135deg, #94a3b8 0%, #64748b 100%);
+}
+
+.prediction-card.sandstorm {
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+}
+
+.prediction-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    animation: pulse 4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.1); opacity: 0.8; }
+}
+
+.emoji {
+    font-size: 5rem;
+    margin-bottom: 16px;
+    display: inline-block;
+    animation: scaleIn 0.6s ease-out;
+    position: relative;
+    z-index: 1;
+}
+
+@keyframes scaleIn {
+    0% { transform: scale(0) rotate(-180deg); }
+    50% { transform: scale(1.2) rotate(10deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+.prediction-card h3 {
+    font-size: 2rem;
+    margin-bottom: 16px;
+    text-transform: capitalize;
+    font-weight: 700;
+    position: relative;
+    z-index: 1;
+}
+
+.confidence {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.05rem;
+    margin-bottom: 16px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    padding: 10px 20px;
+    border-radius: 12px;
+    position: relative;
+    z-index: 1;
+}
+
+.confidence-value {
+    font-weight: 700;
+    font-size: 1.3rem;
+}
+
+.description {
+    font-size: 0.95rem;
+    opacity: 0.9;
+    line-height: 1.6;
+    position: relative;
+    z-index: 1;
+}
+
+/* Probabilities with weather theme */
+.probabilities {
+    background: linear-gradient(135deg, rgba(240, 249, 255, 0.8) 0%, rgba(224, 242, 254, 0.6) 100%);
+    padding: 32px;
+    border-radius: 20px;
+    margin-bottom: 24px;
+    border: 2px solid rgba(14, 165, 233, 0.2);
+}
+
+.probabilities h3 {
+    color: var(--dark);
+    margin-bottom: 24px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.probabilities h3::before {
+    content: '📊';
+    font-size: 1.3rem;
+}
+
+.probability-bar {
+    margin-bottom: 18px;
+}
+
+.probability-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+.probability-label-name {
+    font-weight: 600;
+    color: var(--dark);
+    text-transform: capitalize;
+}
+
+.probability-label-value {
+    color: var(--text-light);
+    font-weight: 600;
+}
+
+.probability-bar-bg {
+    background: rgba(14, 165, 233, 0.1);
+    height: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.probability-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--sky-blue) 0%, var(--storm-blue) 100%);
+    border-radius: 10px;
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 8px rgba(14, 165, 233, 0.3);
+}
+
+/* Error */
+.error {
+    background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+    border: 2px solid #fca5a5;
+    border-radius: 20px;
+    padding: 48px 40px;
+    text-align: center;
+    margin: 40px;
+}
+
+.error-icon {
+    font-size: 3.5rem;
+    margin-bottom: 16px;
+}
+
+.error p {
+    color: #dc2626;
+    font-size: 1rem;
+    margin-bottom: 24px;
+}
+
+/* Footer with weather theme */
+footer {
+    padding: 32px 40px;
+    text-align: center;
+    background: linear-gradient(135deg, rgba(224, 242, 254, 0.5) 0%, rgba(186, 230, 253, 0.3) 100%);
+    border-top: 2px solid rgba(14, 165, 233, 0.2);
+}
+
+footer p {
+    color: var(--text-light);
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.tech-stack {
+    font-size: 0.95rem;
+    color: var(--dark);
+    font-weight: 500;
+}
+
+/* Weather icons in tech stack */
+.tech-stack::before {
+    content: '🌦️ ';
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    body {
+        padding: 0;
+    }
+
+    .container {
+        border-radius: 0;
+        min-height: 100vh;
+    }
+
+    header {
+        padding: 32px 24px;
+    }
+
+    header h1 {
+        font-size: 2rem;
+    }
+
+    header::before,
+    header::after {
+        display: none;
+    }
+
+    .upload-section {
+        padding: 24px;
+    }
+
+    .upload-box {
+        padding: 48px 24px;
+    }
+
+    .preview-section {
+        padding: 24px;
+    }
+
+    .results {
+        padding: 24px;
+    }
+
+    .prediction-card {
+        padding: 32px 24px;
+    }
+
+    .probabilities {
+        padding: 24px;
+    }
+
+    .emoji {
+        font-size: 3.5rem;
+    }
+
+    .btn-primary, .btn-secondary {
+        width: 100%;
+        margin: 8px 0;
+    }
+}
+
+/* Smooth Transitions */
+* {
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+/* Focus States */
+button:focus,
+.upload-box:focus {
+    outline: 3px solid var(--sky-blue);
+    outline-offset: 2px;
+}
+
+/* Selection with weather theme */
+::selection {
+    background: var(--sky-blue);
+    color: var(--snow-white);
+}

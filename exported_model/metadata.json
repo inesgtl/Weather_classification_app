@@ -1,0 +1,21 @@
+{
+  "input_shape": [
+    null,
+    128,
+    128,
+    3
+  ],
+  "output_shape": [
+    null,
+    5
+  ],
+  "num_layers": 24,
+  "total_params": 8915141,
+  "classes": [
+    "hail",
+    "lightning",
+    "rain",
+    "sandstorm",
+    "snow"
+  ]
+}

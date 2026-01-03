@@ -1,0 +1,31 @@
+ 
+cd C:\Users\admin\OneDrive\Desktop\Weather_app
+
+# Créer .gitignore
+echo. > .gitignore
+notepad .gitignore
+```
+
+Copie ce contenu dans le fichier:
+```
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+
+# Images de test (optionnel)
+*.jpg
+*.jpeg
+*.png
+
+# Fichiers volumineux
+best_model.h5
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
